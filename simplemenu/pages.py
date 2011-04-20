@@ -15,10 +15,10 @@ def register(*args):
 
         import simplemenu
         simplemenu.register(
-            '/some/url/',
             'package.module.view',
-            ('/some_url_or_view_with_name/', 'name'),
+            ('package.module.view','name'),
             FlatPage.objects.all(),
+            (FlatPage.objects.all(),'attr_containing_name'),
             Products.objects.get(pk=1),
         )
     """

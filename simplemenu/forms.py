@@ -23,6 +23,7 @@ class MenuItemForm(forms.ModelForm):
                                            empty_permitted, instance)
         self._registered_pages_cache = get_registered_pages()
         self.fields['page'].choices = self.page_choices()
+        self.fields['name'].required = False
 
     def page_choices(self):
         """
@@ -35,6 +36,7 @@ class MenuItemForm(forms.ModelForm):
         choices.sort(key=lambda x: x[1])
         return choices
 
+
     def selected_page(self):
         """
         Returns ``simplemenu.pages.PageWrapper`` for the selected from
@@ -46,3 +48,9 @@ class MenuItemForm(forms.ModelForm):
                 return p
         return None
 
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        name = cleaned_data['name']
+        if not name:
+            cleaned_data['name'] = self.selected_page().name()
+        return cleaned_data

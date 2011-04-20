@@ -7,7 +7,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
-from simplemenu.models import MenuItem
+from simplemenu.models import MenuItem, URLItem
 from simplemenu.forms import MenuItemForm
 
 class MenuItemAdmin(admin.ModelAdmin):
@@ -75,3 +75,4 @@ class MenuItemAdmin(admin.ModelAdmin):
         return redirect('admin:simplemenu_menuitem_changelist')
 
 admin.site.register(MenuItem, MenuItemAdmin)
+admin.site.register(URLItem)

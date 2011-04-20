@@ -118,3 +118,15 @@ class MenuItem(models.Model):
         self.rank, other.rank = other.rank, prev_rank
         other.save()
         self.save()
+
+
+class URLItem(models.Model):
+    """
+    A dead simple class to let users input their own hand crafted URLs, rather
+    than force hard coded URLs to be specified in the code.
+    """
+    name = models.CharField(_('Caption'), max_length=64)
+    url = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.name

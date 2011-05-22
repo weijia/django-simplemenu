@@ -9,7 +9,7 @@ class MenuItemForm(forms.ModelForm):
 
     class Meta:
         model = MenuItem
-        fields = ('name',)
+        fields = ('name','menu')
 
     def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,
                  initial=None, error_class=forms.util.ErrorList,

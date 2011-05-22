@@ -7,12 +7,13 @@ from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
-from simplemenu.models import MenuItem, URLItem
+from simplemenu.models import MenuItem, URLItem, Menu
 from simplemenu.forms import MenuItemForm
 
 class MenuItemAdmin(admin.ModelAdmin):
     form = MenuItemForm
     list_display = ('item_name', 'move', 'page')
+    list_filter = ('menu',)
 
     def save_model(self, request, obj, form, change):
         obj.page = form.selected_page()
@@ -76,3 +77,4 @@ class MenuItemAdmin(admin.ModelAdmin):
 
 admin.site.register(MenuItem, MenuItemAdmin)
 admin.site.register(URLItem)
+admin.site.register(Menu)

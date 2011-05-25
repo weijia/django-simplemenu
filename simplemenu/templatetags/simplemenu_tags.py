@@ -57,3 +57,16 @@ def get_namedmenu(parser, token):
         raise TemplateSyntaxError("Incorrect tag arguments. "
                                   "Usage: %s menuname as varname" % bits[0])
     return NamedmenuNode(bits[1],bits[3])
+
+@register.simple_tag
+def active(request, pattern):
+  import re
+  # Special case for / - we don't want it lit up on every page...
+  if pattern == "/":
+    if not request.path == "/":
+      return
+  # /complicated/sub/directory should light up parent /complicated/
+  if re.search(pattern, request.path):
+    return 'active'
+  return ''
+

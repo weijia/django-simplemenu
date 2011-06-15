@@ -136,7 +136,7 @@ class URLItem(models.Model):
     url = models.CharField(max_length=255)
 
     def __unicode__(self):
-        return self.name
+        return "%s (%s)" % (self.name, self.url)
 
     def get_absolute_url(self):
         return self.url

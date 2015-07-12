@@ -8,7 +8,7 @@ class SimplemenuNode(Node):
         self.varname = varname
 
     def render(self, context):
-        context[self.varname] = MenuItem.objects.all()
+        context[self.varname] = MenuItem.objects.filter(is_valid=True)
         return ''
 
 @register.tag

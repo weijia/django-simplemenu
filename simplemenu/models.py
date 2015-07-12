@@ -25,6 +25,7 @@ class MenuItem(models.Model):
     urlobj_id = models.PositiveIntegerField(null=True)
     urlobj = generic.GenericForeignKey('urlobj_content_type', 'urlobj_id')
     urlstr = models.CharField(max_length=255)
+    is_valid = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['rank']

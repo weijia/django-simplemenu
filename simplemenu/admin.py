@@ -12,7 +12,7 @@ from simplemenu.forms import MenuItemForm
 
 class MenuItemAdmin(admin.ModelAdmin):
     form = MenuItemForm
-    list_display = ('item_name', 'move', 'page')
+    list_display = ('item_name', 'move', 'page', 'is_valid')
 
     def save_model(self, request, obj, form, change):
         obj.page = form.selected_page()

@@ -15,10 +15,10 @@ def register(*args):
 
         import simplemenu
         simplemenu.register(
-            '/some/url/',
             'package.module.view',
-            ('/some_url_or_view_with_name/', 'name'),
+            ('package.module.view','name'),
             FlatPage.objects.all(),
+            (FlatPage.objects.all(),'attr_containing_name'),
             Products.objects.get(pk=1),
         )
     """
@@ -66,7 +66,7 @@ class PageWrapper(object):
         if self.urlobj:
             return "%s.%s.pk%s" % (self.urlobj.__module__,
                                    self.urlobj.__class__.__name__,
-                                   self.urlobj.id)
+                                   self.urlobj.pk)
         else:
             return self.urlstr
 
@@ -77,12 +77,17 @@ def get_registered_pages():
     """
     pages = []
     for reg in map(copy.deepcopy, registry):
+        name = None
+        if isinstance(reg, types.TupleType):
+            reg, name = reg
         if isinstance(reg, QuerySet):
+            # Name is the given attr if possible elsewise just use unicode(obj)
+            if not name: 
+                f  = lambda obj: PageWrapper(obj, unicode(obj))
+            else:
+                f  = lambda obj: PageWrapper(obj, getattr(obj, name, unicode(obj)))
             # evaluating QuerySet objects by iteration
-            pages.extend(map(PageWrapper, reg))
+            pages.extend(map(f, reg))
         else:
-            name = None
-            if isinstance(reg, types.TupleType):
-                reg, name = reg
             pages.append(PageWrapper(reg, name))
     return pages

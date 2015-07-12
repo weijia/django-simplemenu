@@ -5,6 +5,12 @@ from django.utils.translation import ugettext_lazy as _
 
 from simplemenu.pages import PageWrapper
 
+class Menu(models.Model):
+    name = models.CharField(max_length=64)
+
+    def __unicode__(self):
+        return self.name
+
 class MenuItem(models.Model):
     """
     A menu item.
@@ -19,6 +25,7 @@ class MenuItem(models.Model):
     All items in the menu are ordered by ``rank``.
     """
     name = models.CharField(_('Caption'), max_length=64)
+    menu = models.ForeignKey(Menu)
     rank = models.SmallIntegerField(unique=True, db_index=True)
 
     urlobj_content_type = models.ForeignKey(ContentType, null=True)
@@ -119,3 +126,18 @@ class MenuItem(models.Model):
         self.rank, other.rank = other.rank, prev_rank
         other.save()
         self.save()
+
+
+class URLItem(models.Model):
+    """
+    A dead simple class to let users input their own hand crafted URLs, rather
+    than force hard coded URLs to be specified in the code.
+    """
+    name = models.CharField(_('Caption'), max_length=64)
+    url = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return "%s (%s)" % (self.name, self.url)
+
+    def get_absolute_url(self):
+        return self.url

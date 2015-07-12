@@ -56,6 +56,7 @@ You can register the following objects:
   method.)::
 
       Entries.objects.filter(published=True),
+      simplemenu.models.URLItem.objects.all(),
 
 * URLs::
 

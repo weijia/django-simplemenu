@@ -17,7 +17,7 @@ test_requirements = [ ]
 
 setup(
     author='Alex Vasi, Wang, Richard',
-    author_email='eee@someuser.com; richardwangwang@gmail.com',
+    author_email='richardwangwang@gmail.com',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
@@ -37,8 +37,8 @@ setup(
     long_description=readme + '\n\n' + history,
     include_package_data=True,
     keywords='simplemenu',
-    name='django-simplemenu-simplifiled',
-    packages=['simplemenu', 'simplemenu.templatetags'])
+    name='django-simplemenu-simplified',
+    packages=['simplemenu', 'simplemenu.templatetags'],
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,

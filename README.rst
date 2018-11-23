@@ -1,37 +1,61 @@
+django-simplemenu-simplified
 =================
-django-simplemenu
-=================
+
+Cloned from https://github.com/althalus/django-simplemenu but make it more simple
+
+A dead simple menu app for Django with ordering in admin interface and
+ability to link menu item with model instance, view or URL.
+
+It features user-proof admin interface with links for ordering items
+and limited list of available pages to link to. You should register
+your views, QuerySets, model instances or URLs to populate that list.
+
+Installation
+============
+
+#. Run ``python setup.py install`` or just place simplemenu directory
+   into a directory which is on your PYTHONPATH.
+#. Add ``'simplemenu'`` to your ``INSTALLED_APPS`` setting.
+#. Run ``python manage.py syncdb``.
+#. Register your pages by adding calls to ``simplemenu.register``.
+#. Add menu to your templates.
+
+Note that this application requires Django 1.1 or newer.
 
 
-.. image:: https://img.shields.io/pypi/v/simplemenu.svg
-        :target: https://pypi.python.org/pypi/simplemenu
+Templates
+=========
 
-.. image:: https://img.shields.io/travis/weijia/simplemenu.svg
-        :target: https://travis-ci.org/weijia/simplemenu
+This app has only one tag::
 
-.. image:: https://readthedocs.org/projects/simplemenu/badge/?version=latest
-        :target: https://simplemenu.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
+    {% get_simplemenu as [varname] %}
 
+It stores QuerySet of all menu items in a context variable. Example::
 
+    {% load simplemenu_tags %}
+    {% get_simplemenu as menu %}
+    {% for item in menu %}
+        <a href="{{ item.page.url }}">{{ item.name }}</a>
+    {% endfor %}
 
+Highlight visited menu items
+----------------------------
 
-A simple menu for Django
+It's relatively simple to handle menu item that links to current
+page. First, you need to have URL of the page in your template
+context. The most common way to do it is to add
+``'django.core.context_processors.request'`` to the
+`TEMPLATE_CONTEXT_PROCESSORS
+<http://docs.djangoproject.com/en/1.1/ref/settings/#template-context-processors>`_
+setting and to use `RequestContext
+<http://docs.djangoproject.com/en/1.1/ref/templates/api/#id1>`_ in
+your views. Then you could write in your template the following::
 
-
-* Free software: MIT license
-* Documentation: https://simplemenu.readthedocs.io.
-
-
-Features
---------
-
-* TODO
-
-Credits
--------
-
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+    {% load simplemenu_tags %}
+    {% get_simplemenu as menu %}
+    <ul>
+    {% for item in menu %}
+        <li {% ifequal item.page.url request.path %}class="selected"{% endifequal %}>
+            <a href="{{ item.page.url }}">{{ item.name }}</a></li>
+    {% endfor %}
+    </ul>

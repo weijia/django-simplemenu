@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
+from distutils.core import setup
 """The setup script."""
 
 from setuptools import setup, find_packages
@@ -18,8 +16,8 @@ setup_requirements = [ ]
 test_requirements = [ ]
 
 setup(
-    author="Wang Richard",
-    author_email='richardwangwang@gmail.com',
+    author='Alex Vasi, Wang, Richard',
+    author_email='eee@someuser.com; richardwangwang@gmail.com',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
@@ -35,16 +33,17 @@ setup(
     ],
     description="A simple menu for Django",
     install_requires=requirements,
-    license="MIT license",
+    license='BSD',
     long_description=readme + '\n\n' + history,
     include_package_data=True,
     keywords='simplemenu',
-    name='simplemenu',
-    packages=find_packages(include=['simplemenu']),
+    name='django-simplemenu-simplifiled',
+    packages=['simplemenu', 'simplemenu.templatetags'])
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/weijia/simplemenu',
+    url='https://github.com/weijia/django-simplemenu',
     version='0.1.0',
     zip_safe=False,
 )
+

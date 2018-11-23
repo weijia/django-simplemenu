@@ -1,6 +1,8 @@
 django-simplemenu
 =================
 
+Cloned from https://github.com/althalus/django-simplemenu but make it more simple
+
 A dead simple menu app for Django with ordering in admin interface and
 ability to link menu item with model instance, view or URL.
 
@@ -20,48 +22,6 @@ Installation
 
 Note that this application requires Django 1.1 or newer.
 
-Registering your pages
-======================
-
-The idea was to make editing menu via admin interface as simple as
-possible. So in order to create new menu item user only have to enter
-its name and choose a page from a drop-down list. You have to register
-a page to make it available for user.
-
-For example, you could add this code to your urls.py::
-
-    import simplemenu
-
-    simplemenu.register(
-        'blog.views.recent_entries',
-        FlatPage.objects.all(),
-    )
-
-In that case list of pages will be consist of "Recent entries" and
-names of all existing FlatPages.
-
-You can register the following objects:
-
-* views (basically anything `reversible
-  <http://docs.djangoproject.com/en/1.1/topics/http/urls/#reverse>`_
-  w/o parameters)::
-
-      'app.views.viewname',
-      ('app.views.viewname', u'Custom name for the admin interface'),
-
-* QuerySets or model instances (QuerySets will be evaluated every time
-  the menu item form is created. Menu item stores only ContentType and
-  PK of the object. Every object must have `get_absolute_url
-  <http://docs.djangoproject.com/en/1.1/ref/models/instances/#get-absolute-url>`_
-  method.)::
-
-      Entries.objects.filter(published=True),
-      simplemenu.models.URLItem.objects.all(),
-
-* URLs::
-
-      '/some/url/',
-      ('/another/url', u'Name of the page'),
 
 Templates
 =========

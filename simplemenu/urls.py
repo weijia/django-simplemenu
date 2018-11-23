@@ -1,11 +1,12 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from djangoautoconf.model_utils.url_for_models import add_all_urls
 
 import models
 
-urlpatterns = patterns('',
-                       )
+urlpatterns = []
+
+
 try:
     from django_auto_filter.views_django_auto_filter import DjangoAutoFilter
     urlpatterns += [url(r'^$', login_required(

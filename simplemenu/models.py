@@ -23,7 +23,7 @@ class MenuItem(models.Model):
     All items in the menu are ordered by ``rank``.
     """
     name = models.CharField(_('Caption'), max_length=64)
-    menu = models.ForeignKey(Menu)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
 
     urlstr = models.CharField(max_length=255)
     is_valid = models.BooleanField(default=False)
